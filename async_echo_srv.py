@@ -5,16 +5,12 @@ import threading
 class EchoHandler(asyncore.dispatcher_with_send):
 	def handle_read(self):
 		data = self.recv(1024)
-		if len(data) > 0:
-			com = data.decode()
-			print(com)
-			self.sendall(data)
-			if str(com) == 'close':
-				print('close connection')
-				self.close()
+		if data:
+			if data == 'close'
+			self.close()
 		else:
-			print('close connection')
-		
+			print(data)
+			self.send(data)
 
 class EchoServer(asyncore.dispatcher):
  
