@@ -6,8 +6,8 @@ class EchoHandler(asyncore.dispatcher_with_send):
 	def handle_read(self):
 		data = self.recv(1024)
 		if data:
-			if data == 'close'
-			self.close()
+			if data == 'close':
+				self.close()
 		else:
 			print(data)
 			self.send(data)
@@ -35,6 +35,6 @@ class AsyncEventLoop (threading.Thread):
     def run(self):
         asyncore.loop()
 
-server = EchoServer('127.0.0.1', 2222)
+server = EchoServer('', 2222)
 evLoop = AsyncEventLoop()
 evLoop.start()
