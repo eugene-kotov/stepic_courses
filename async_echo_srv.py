@@ -8,9 +8,9 @@ class EchoHandler(asyncore.dispatcher_with_send):
 		if data:
 			if data == 'close':
 				self.close()
-		else:
-			print(data)
-			self.send(data)
+			else:
+				print(data)
+				self.send(data)
 
 class EchoServer(asyncore.dispatcher):
  
