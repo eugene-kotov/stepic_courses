@@ -1,0 +1,50 @@
+1. убедитесь что реальный конфиг существует:
+cat /home/box/web/etc/nginx.conf
+
+2. удалите символическую ссылку 
+sudo rm /etc/nginx/sites-enabled/test.conf
+
+3. создайте новую символическую ссылку именно такой командой:
+sudo ln -s /home/box/web/etc/nginx.conf  /etc/nginx/sites-enabled/test.conf
+
+4. снова проверьте чтобы символическая ссылка вела на ваш конфиг:
+cat /etc/nginx/sites-enabled/test.conf
+
+перезапустите nginx и проверьте
+
+
+sudo rm /etc/nginx/sites-enabled/default
+sudo ln -sf /home/eugene/web/etc/nginx.conf /etc/nginx/sites-enabled/default
+sudo /etc/init.d/nginx restart
+
+ просто делаете git clone https://github.com/your_account/stepic_web_project.git﻿ /home/box/web 
+
+
+
+/home/box/web
+          |---public
+          |   |---img
+          |   |---css
+          |   |---js
+          |---uploads
+          |---etc
+
+
+  sudo gunicorn -b 0.0.0.0:8080 hello:app
+
+Ух, Дмитрий, как минимум один урок минут на 10 по gunicorn точно должен был быть. Я сдал с первого раза, но только тогда, когда смог запустить gunicorn, а это произошло с попытки 30-ой наверное.
+
+Небольшая помощь тем, кто ещё не сдал:
+
+1) Не смотрите в пример конфига, который находится в /etc/gunicorn.d/wsgi.example, я так и не смог адаптировать их. Как оказалось, в документации правильнее описано, а там сказано, что конфиг - это python-модуль, в котором переменные и есть опции со значениями. Пример: bind="0.0.0.0:8080"
+
+2) Так как в папке /etc/gunicorn.d/ может быть много конфигов, при запуске gunicorn нужно указывать "-c config", где config - файл, который находится в папке /etc/gunicorn.d
+
+3) Также, чтобы указать, какая функция и какой модуль будут WSGI-приложением, нужно в команде указать "module.function", где module - это ваш файл с функцией, а function - имя функции
+
+В результате в моём случае пример был такой "gunicorn -c hello.py hello:application"
+
+4) Модуль с WSGI функцией ищется во всех стандартных путях с библиотеками Python, которого, естественно, там нет, поэтому в конфиг стоит также добавить переменную pythonpath="path", где path - это путь к папке. где находится модуль с WSGI функцией
+
+
+  Конфиг разместить в файле /home/box/etc/gunicorn.conf и подключите его с помощью символической ссылки /etc/gunicorn.d/testg{
